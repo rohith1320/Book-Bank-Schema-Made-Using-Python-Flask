@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+        <head>
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+            <script type="text/javascript" charset="utf-8">
+                  var socket = io.connect('http://' + document.domain + ':' + location.port);
+                  socket.on('connect', function() {
+                       console.log('connected');
+                  });
+                  socket.on('message', function(data) {
+                       console.log(data);
+                  });
+            </script>
+      </head>
+    
+    <body>
+        <form action="/" method="POST" class="form-group" style="width: 40%;
+        margin-top: 10vh; margin-left: 30%;
+        display: flex; flex-direction: column;
+        height: 30vh; justify-content: space-evenly;">
+            <b>To address:</b>
+            <input class="form-control" type="text"
+                   name="to_address" placeholder="+36201111111"
+                   autocomplete=false>
+            <b>Text:</b>
+            <input class="form-control"
+                   type="text" name="text"
+                   placeholder="Hello world!"
+                   autocomplete=false>
+            <input class="btn btn-primary"
+                   style="font-weight: 600;"
+                   type="submit"
+                   name="submit"
+                   value="SEND">
+        </form>
+        <ul style="width: 40%; margin-left: 30%; height: 40vh; overflow-y: scroll;"
+            class="list-group card">
+            <li class="list-group-item card"><b>Logs:</b></li>
+            {% if logs %}
+                {%for log in logs%}
+                    <li class="list-group-item">{{ log }}</li>
+                {%endfor%}
+            {% endif  %}
+        </ul>
+    </body>
+</html>
